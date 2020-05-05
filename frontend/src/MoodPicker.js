@@ -19,6 +19,7 @@ export default class MoodPicker extends React.Component {
     }
 
     handleOnChange(value) {
+      // TODO: send update to server
       return this.setState({ value });
     }
 

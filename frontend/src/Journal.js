@@ -8,7 +8,7 @@ export default class Journal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            content: ""
+            content: ''
         };
     }
 
@@ -18,21 +18,21 @@ export default class Journal extends React.Component {
             && date1.getDay() === date2.getDay()
     }
 
+    updateServer() {
+        //TODO: send data to server
+    }
+
     render() {
-        if (!(this.compareDates(this.props.date, new Date()))) {
-            console.log("lol");
-            return <Textarea 
-                className="margin-20" 
-                rows={14} 
-                placeholder={NO_ENTRY}
-                value={this.props.content}
-                readOnly />
-        }
-        else {
-            return <Textarea 
-                className="margin-20" 
-                rows={14} 
-                placeholder={JOURNAL_PLACEHOLDER} />
-        }
+        return <Textarea 
+            className="margin-20" 
+            rows={14} 
+            placeholder={!(this.compareDates(this.props.date, new Date())) ? NO_ENTRY : JOURNAL_PLACEHOLDER}
+            value={!(this.compareDates(this.props.date, new Date())) ? this.props.content : this.state.content}
+            onChange={(event) => {
+                this.setState({ content : event.target.value });
+                this.updateServer();
+                }
+            } 
+        />
     }
 }

@@ -36,8 +36,11 @@ let data = [
 
 export default class App extends React.Component {
 
+    //TODO: authorization
+
     constructor(props) {
         super(props);
+        //TODO: get data from server as initial data
         this.state = {
             date: new Date(),
             journal_content: null,
@@ -48,6 +51,7 @@ export default class App extends React.Component {
     onCalendarChange(value) {
         this.setState({date: value, journal_content: '', mood_value: ''});
 
+        //TODO: replace with data from server
         let app = this;
         data.some(function(entry) {
             if (app.compareDates(value, entry.date)) {
@@ -79,7 +83,7 @@ export default class App extends React.Component {
                     }}
                     minDate={new Date(2019, 0, 1)}
                     maxDate={new Date()} />
-                    </div>
+            </div>
             <div>
               <Journal content={this.state.journal_content} date={this.state.date} />
               <MoodPicker value={this.state.mood_value} date={this.state.date} />
@@ -87,6 +91,5 @@ export default class App extends React.Component {
           </div>
         </Card>
         </Application>
-    }
-  
+    } 
 }
