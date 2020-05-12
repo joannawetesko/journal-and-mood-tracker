@@ -3,12 +3,21 @@ import React from 'react';
 import MoodPicker from './MoodPicker';
 import Journal from './Journal';
 import CardHeader from './CardHeader';
+import Login from './Login';
+import Register from './Register';
 
 import { 
     Application,
     Calendar,
     Card,
   } from 'react-rainbow-components';
+
+import {
+    BrowserRouter,
+    Switch,
+    Route,
+    Redirect
+  } from "react-router-dom";
 
 
 const theme = {
@@ -20,76 +29,57 @@ const theme = {
   },
 };
 
-// MOCKED DATA FROM SERVER
-let data = [
-    {
-        'date': new Date(2020, 4, 3),
-        'journal_content': 'This is 3.05 entry',
-        'mood_value': 'mood-good'
-    },
-    {
-        'date': new Date(2020, 4, 4),
-        'journal_content': 'This is 4.05 entry',
-        'mood_value': 'mood-awful'
-    }
-];
-
-export default class App extends React.Component {
-
-    //TODO: authorization
+class Main extends React.Component {
 
     constructor(props) {
         super(props);
-        //TODO: get data from server as initial data
         this.state = {
             date: new Date(),
-            journal_content: null,
-            mood_value: ""
         };
       }
 
-    onCalendarChange(value) {
-        this.setState({date: value, journal_content: '', mood_value: ''});
-
-        //TODO: replace with data from server
-        let app = this;
-        data.some(function(entry) {
-            if (app.compareDates(value, entry.date)) {
-                app.setState({
-                    'journal_content': entry.journal_content,
-                    'mood_value': entry.mood_value
-                });
-            };
-            return '';
-        });
-    }
-
-    compareDates(date1, date2) {
-        return date1.getFullYear() === date2.getFullYear() 
-            && date1.getMonth() === date2.getMonth()
-            && date1.getDay() === date2.getDay()
+    isAuthenticated() {
+        return localStorage.getItem('username') !== null
     }
 
     render() {
-      return <Application theme={theme}>
-        <Card className="margin-20" title={<CardHeader username="asia" />}>
-          <div className="grid">
-            <div><Calendar 
+        if (this.isAuthenticated()) {
+            return <Application theme={theme}>
+            <Card className="margin-20" title={<CardHeader username={localStorage.getItem("username")} />}>
+            <div className="grid">
+                <div><Calendar 
                     className="margin-20"
                     value={ this.state.date }
-                    onChange={value => {
-                        this.setState({ date: value });
-                        this.onCalendarChange(value);
-                    }}
-                    minDate={new Date(2019, 0, 1)}
-                    maxDate={new Date()} />
+                    onChange={ value => this.setState({ date: value }) }
+                    minDate={ new Date(2019, 0, 1) }
+                    maxDate={ new Date() } />
+                </div>
+                <div>
+                <Journal date={this.state.date} />
+                <MoodPicker date={this.state.date} />
+                </div>
             </div>
-            <div>
-              <Journal content={this.state.journal_content} date={this.state.date} />
-              <MoodPicker value={this.state.mood_value} date={this.state.date} />
-            </div>
-          </div>
-        </Card>
-        </Application>
+            </Card>
+            </Application>
+        }
+        else {
+            return <Redirect to="/login" />
+        }
+    }
+
+
+}
+
+export default class App extends React.Component {
+
+    render() {
+            return <BrowserRouter>
+                <Switch>
+                    <Route path="/" component={Main} exact />
+                    <Route path="/login" component={Login} />
+                    <Route path="/register" component={Register} />
+                </Switch>
+            </BrowserRouter>
+        
     } 
 }

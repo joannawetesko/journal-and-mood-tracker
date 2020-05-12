@@ -16,6 +16,7 @@
     "react-dom": "^16.13.1",
     "react-emoji-render": "^1.2.2",
     "react-rainbow-components": "^1.15.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "typescript": "^3.8.3"
   },
