@@ -66,8 +66,6 @@ class Main extends React.Component {
             return <Redirect to="/login" />
         }
     }
-
-
 }
 
 export default class App extends React.Component {
@@ -80,6 +78,5 @@ export default class App extends React.Component {
                     <Route path="/register" component={Register} />
                 </Switch>
             </BrowserRouter>
-        
     } 
 }

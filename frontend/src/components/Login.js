@@ -2,8 +2,7 @@ import React from 'react';
 
 import { Application, Card, Input, Button } from 'react-rainbow-components';
 import { Link } from "react-router-dom";
-
-import axios from 'axios';
+import { login } from "../api/apiClient";
 
 const inputStyles = {
     width: 300,
@@ -28,18 +27,8 @@ export default class Login extends React.Component {
         }
     }
 
-    handleClick() {
-        axios.post('http://localhost:8000/api/token/', {
-            username: this.state.username,
-            password: this.state.password
-          }
-        ).then(response => {
-            localStorage.setItem('jwt_access_token', response.data.access);
-            localStorage.setItem('jwt_refresh_token', response.data.refresh);
-            localStorage.setItem('username', this.state.username);
-        }, (error) => {
-            console.log(error);
-        });
+    loginButtonClick() {
+        return login(this.state.username, this.state.password);
     }
 
     render() {
@@ -66,7 +55,7 @@ export default class Login extends React.Component {
                 />
                 <Link to="/"><Button 
                     label="Log in"
-                    onClick={(event) => this.handleClick(event)}
+                    onClick={(event) => this.loginButtonClick(event)}
                     variant="neutral"
                     className="rainbow-m-around_medium"
                 /></Link>
