@@ -22,16 +22,16 @@ export default class MoodPicker extends React.Component {
         this.handleMoodChange = this.handleMoodChange.bind(this);
     }
 
-    componentDidMount() {
-      this.loadData()
+    async componentDidMount() {
+      await this.loadData()
     }
 
-    componentDidUpdate(prevProps, prevState) {
-      !compareDates(prevProps.date,this.props.date) && this.loadData();
+    async componentDidUpdate(prevProps, prevState) {
+      !compareDates(prevProps.date,this.props.date) && await this.loadData();
     }
 
-    loadData() {
-      let moodKey = getMood(formatDate(this.props.date));
+    async loadData() {
+      const moodKey = await getMood(formatDate(this.props.date));
       return (moodKey in MOOD) ? this.setState({ value : MOOD[moodKey] }) : this.setState({ value : null });
     }
 
@@ -46,12 +46,14 @@ export default class MoodPicker extends React.Component {
                 value={this.state.value}
                 onChange={this.handleMoodChange}
                 id="mood-visual-picker"
-                className="mood-picker">
+                className="mood-picker"
+                >
                 
                 <VisualPickerOption
                     name="mood-awful" 
                     className="mood-picker" 
-                    footer={<VisualPickerOptionFooter label="Awful" />}>
+                    footer={<VisualPickerOptionFooter label="Awful"/>}
+                    disabled={!(compareDates(this.props.date, new Date()))}>
                   
                   <Emoji text=":tired_face:" className="emoji-size" />
 
@@ -60,7 +62,8 @@ export default class MoodPicker extends React.Component {
                 <VisualPickerOption 
                     name="mood-bad" 
                     className="mood-picker"
-                    footer={<VisualPickerOptionFooter label="Bad" />}>
+                    footer={<VisualPickerOptionFooter label="Bad" />}
+                    disabled={!(compareDates(this.props.date, new Date()))}>
 
                   <Emoji text=":disappointed:" className="emoji-size" />
                 
@@ -69,7 +72,8 @@ export default class MoodPicker extends React.Component {
                 <VisualPickerOption 
                     name="mood-neutral"
                     className="mood-picker"
-                    footer={<VisualPickerOptionFooter label="Neutral" />}>
+                    footer={<VisualPickerOptionFooter label="Neutral" />}
+                    disabled={!(compareDates(this.props.date, new Date()))}>
 
                   <Emoji text=":confused:" className="emoji-size" />
                 
@@ -78,7 +82,8 @@ export default class MoodPicker extends React.Component {
                 <VisualPickerOption
                     name="mood-good"
                     className="mood-picker"
-                    footer={<VisualPickerOptionFooter label="Good" />}>
+                    footer={<VisualPickerOptionFooter label="Good" />}
+                    disabled={!(compareDates(this.props.date, new Date()))}>
 
                   <Emoji text=":smile:" className="emoji-size" />
                 
@@ -87,7 +92,8 @@ export default class MoodPicker extends React.Component {
                 <VisualPickerOption
                     name="mood-awesome"
                     className="mood-picker" 
-                    footer={<VisualPickerOptionFooter label="Awesome" />}>
+                    footer={<VisualPickerOptionFooter label="Awesome" />}
+                    disabled={!(compareDates(this.props.date, new Date()))}>
 
                     <Emoji text=":heart_eyes:" className="emoji-size" />
 

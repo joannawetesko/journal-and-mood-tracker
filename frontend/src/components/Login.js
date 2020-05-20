@@ -1,7 +1,7 @@
 import React from 'react';
 
+import { withRouter } from 'react-router-dom';
 import { Application, Card, Input, Button } from 'react-rainbow-components';
-import { Link } from "react-router-dom";
 import { login } from "../api/apiClient";
 
 const inputStyles = {
@@ -17,7 +17,7 @@ const theme = {
     },
 };
 
-export default class Login extends React.Component {
+class Login extends React.Component {
 
     constructor(props){
         super(props);
@@ -27,8 +27,12 @@ export default class Login extends React.Component {
         }
     }
 
-    loginButtonClick() {
-        return login(this.state.username, this.state.password);
+    async loginButtonClick() {
+        const data = await login(this.state.username, this.state.password);
+        localStorage.setItem('jwt_access_token', data.access);
+        localStorage.setItem('jwt_refresh_token', data.refresh);
+        localStorage.setItem('username', this.state.username);
+        this.props.history.push('/');
     }
 
     render() {
@@ -53,13 +57,15 @@ export default class Login extends React.Component {
                     onChange={(event) => {
                         this.setState({ password : event.target.value }); }}
                 />
-                <Link to="/"><Button 
+                <Button 
                     label="Log in"
                     onClick={(event) => this.loginButtonClick(event)}
                     variant="neutral"
                     className="rainbow-m-around_medium"
-                /></Link>
+                />
             </Card>
         </Application>
     }
 }
+
+export default withRouter(Login)

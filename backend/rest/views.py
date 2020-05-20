@@ -10,14 +10,9 @@ class JournalListCreateView(generics.ListCreateAPIView):
     permission_classes = [
         permissions.IsAuthenticated
     ]
-    #filterset_fields = {
-    #    'body': ['exact', 'icontains'],
-    #    'created_at': ['exact', 'lt', 'gt'],
-    #    'user': ['exact']
-    #}
 
     def get_queryset(self):
-        queryset = JournalEntry.objects.all()
+        queryset = JournalEntry.objects.filter(user=self.request.user)
         created_at = self.request.query_params.get('date', None)
         if created_at is not None:
             queryset = queryset.filter(created_at=created_at)
@@ -43,10 +38,6 @@ class MoodListCreateView(generics.ListCreateAPIView):
     permission_classes = [
         permissions.IsAuthenticated
     ]
-    #filterset_fields = {
-    #    'created_at': ['exact', 'lt', 'gt'],
-    #    'user': ['exact']
-    #}
 
     def get_queryset(self):
         queryset = MoodEntry.objects.filter(user=self.request.user)

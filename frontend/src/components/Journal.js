@@ -16,16 +16,16 @@ export default class Journal extends React.Component {
         };
     }
 
-    componentDidMount() {
-        this.loadData();
+    async componentDidMount() {
+        await this.loadData();
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        !compareDates(prevProps.date,this.props.date) && this.loadData();
+    async componentDidUpdate(prevProps, prevState) {
+        !compareDates(prevProps.date,this.props.date) && await this.loadData();
     }
 
-    loadData() {
-        let journalContent = getJournal(formatDate(this.props.date));
+    async loadData() {
+        const journalContent = await getJournal(formatDate(this.props.date));
         return this.setState({ content : journalContent });
     }
 
