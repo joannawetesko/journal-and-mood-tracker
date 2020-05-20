@@ -11,7 +11,6 @@ import { compareDates, formatDate, getKeyByValue } from '../helpers/Helpers';
 import { MOOD } from '../helpers/Constants';
 import { getMood, sendMood } from '../api/apiClient';
 
-
 export default class MoodPicker extends React.Component {
 
     constructor(props) {
@@ -52,7 +51,7 @@ export default class MoodPicker extends React.Component {
                 <VisualPickerOption
                     name="mood-awful" 
                     className="mood-picker" 
-                    footer={<VisualPickerOptionFooter label="Awful"/>}
+                    footer={<VisualPickerOptionFooter label="Awful" />}
                     disabled={!(compareDates(this.props.date, new Date()))}>
                   
                   <Emoji text=":tired_face:" className="emoji-size" />

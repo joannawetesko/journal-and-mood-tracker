@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
 html {
   height: 100%;
 }
@@ -20,8 +22,35 @@ code {
 html, body, #root, .room {
   height: 100%;
   margin: 0;
-  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+article {
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+h2 {
+  display: block;
+  font-size: 4em;
+  font-family: 'Pacifico';
+  text-align: center;
+  background: linear-gradient(90deg, rgba(104,197,209,1) 0%, rgba(128,222,234,1) 27%, rgba(164,241,250,1) 67%, rgba(104,197,209,1) 88%);
+  -webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+  margin: 10px;
+}
+
+.login-register {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40em;
+  width: 100%;
+}
+
 .lit {
   background-color: white;
   color: black;

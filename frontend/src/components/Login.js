@@ -8,6 +8,16 @@ const inputStyles = {
     width: 300,
 };
 
+const loginButtonStyle = {
+    marginLeft: "100px",
+}
+
+const logo = {
+    fontSize: "80px",
+    fontWeight: "400",
+    paddingBottom: "60px",
+}
+
 const theme = {
     rainbow: {
         palette: {
@@ -37,7 +47,9 @@ class Login extends React.Component {
 
     render() {
         return <Application theme={theme}>
-            <Card className="singular-column margin-20">
+            <Card className="singular-column margin-20 login-register">
+                <div>
+                <h2 style={logo}>Journaly</h2>
                 <Input
                     label="Username"
                     type="text"
@@ -61,8 +73,11 @@ class Login extends React.Component {
                     label="Log in"
                     onClick={(event) => this.loginButtonClick(event)}
                     variant="neutral"
-                    className="rainbow-m-around_medium"
+                    className="rainbow-m-around_medium button"
+                    style={loginButtonStyle}
+                    
                 />
+                </div>
             </Card>
         </Application>
     }

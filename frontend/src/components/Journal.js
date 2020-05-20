@@ -14,6 +14,7 @@ export default class Journal extends React.Component {
         this.state = {
             content: ''
         };
+        this.handleJournalChange = this.handleJournalChange.bind(this);
     }
 
     async componentDidMount() {

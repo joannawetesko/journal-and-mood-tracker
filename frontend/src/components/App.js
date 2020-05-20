@@ -55,10 +55,10 @@ class Main extends React.Component {
                     maxDate={ new Date() } />
                 </div>
                 <div>
-                <Journal date={this.state.date} />
-                <MoodPicker date={this.state.date} />
+                <Journal className="margin-20" date={this.state.date} />
                 </div>
             </div>
+            <MoodPicker date={this.state.date} />
             </Card>
             </Application>
         }

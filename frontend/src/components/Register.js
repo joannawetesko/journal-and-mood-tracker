@@ -9,6 +9,16 @@ const inputStyles = {
     width: 300,
 };
 
+const registerButtonStyle = {
+    marginLeft: "100px",
+}
+
+const logo = {
+    fontSize: "80px",
+    fontWeight: "400",
+    paddingBottom: "60px",
+}
+
 const theme = {
     rainbow: {
         palette: {
@@ -30,12 +40,14 @@ class Register extends React.Component {
 
     async registerButtonClick() {
         const status = await register(this.state.username, this.state.password);
-        status === 200 ? this.props.history.push('/login') : this.props.history.push('/register');
+        status === 201 ? this.props.history.push('/login') : this.props.history.push('/register');
     }
 
     render() {
         return <Application theme={theme}>
-            <Card className="singular-column margin-20">
+            <Card className="singular-column margin-20 login-register">
+                <div>
+                <h2 style={logo}>Journaly</h2>
                 <Input
                     label="Username"
                     type="text"
@@ -60,7 +72,9 @@ class Register extends React.Component {
                     onClick={(event) => this.registerButtonClick(event)}
                     variant="neutral"
                     className="rainbow-m-around_medium"
+                    style={registerButtonStyle}
                 />
+                </div>
             </Card>
         </Application>
     }
