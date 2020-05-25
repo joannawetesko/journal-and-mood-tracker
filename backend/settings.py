@@ -11,22 +11,21 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '6c*1x2^oc8u3!l&-o)k@4=p!0nz$mc!@!9u@rlwy+z-e1gqe)w'
+SECRET_KEY = os.environ.get("SECRET_KEY", "not-so-secret-key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -126,8 +125,8 @@ REST_FRAMEWORK = {
 # CORS settings
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-]
 
 DATE_INPUT_FORMATS = ['%Y-%m-%d']
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
