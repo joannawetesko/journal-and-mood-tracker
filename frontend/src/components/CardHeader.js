@@ -1,17 +1,8 @@
 import React from 'react';
 import { Chip, Avatar } from 'react-rainbow-components';
-
+import { AVATAR_STYLE, AVATAR_SOURCE, CHIP_CONTAINER } from '../helpers/Constants';
+ 
 import CloseButton from './CloseButton'
-
-const AvatarStyles = {
-    width: '30px',
-    height: '30px',
-    marginTop: '-2px',
-  };
-  
-const ChipContainer = {
-    paddingLeft: 0,
-};
 
 export default class CardHeader extends React.Component {
 
@@ -19,12 +10,12 @@ export default class CardHeader extends React.Component {
         return <div>
         <CloseButton />
         <Chip
-          style={ChipContainer}
+          style={CHIP_CONTAINER}
           className="rainbow-m-around_medium"
           label={<span><Avatar
-                style={AvatarStyles}
+                style={AVATAR_STYLE}
                 className="rainbow-m-right_x-small"
-                src="./avatar.png"
+                src={AVATAR_SOURCE}
                 assistiveText={this.props.username}
                 title={this.props.username}
                 size="medium" />

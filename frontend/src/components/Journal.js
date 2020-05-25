@@ -2,7 +2,7 @@ import React from 'react';
 import '../index.css';
 import { Textarea } from 'react-rainbow-components';
 
-import { JOURNAL_PLACEHOLDER, NO_ENTRY } from '../helpers/Constants';
+import { JOURNAL_PLACEHOLDER, NO_ENTRY, ROWS } from '../helpers/Constants';
 import { compareDates, formatDate } from '../helpers/Helpers'
 import { getJournal, sendJournal } from '../api/apiClient';
 
@@ -38,7 +38,7 @@ export default class Journal extends React.Component {
     render() {
         return <Textarea 
             className="margin-20" 
-            rows={14} 
+            rows={ROWS} 
             placeholder={!(compareDates(this.props.date, new Date())) ? NO_ENTRY : JOURNAL_PLACEHOLDER}
             value={this.state.content}
             onChange={(event) => {this.handleJournalChange(event.target.value);}} 

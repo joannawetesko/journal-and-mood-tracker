@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 export default class CloseButton extends React.Component {
 
     render() {
-        return <Link to="/login"><ButtonIcon 
+        return <Link to="/auth"><ButtonIcon 
             variant="border-filled" 
             icon={<FontAwesomeIcon icon={faTimesCircle} />} 
             type="button"

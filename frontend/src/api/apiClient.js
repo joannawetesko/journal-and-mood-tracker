@@ -11,7 +11,6 @@ axios.interceptors.request.use(
         return config;
     },
     error => {
-        console.log("ERR" + error);
         Promise.reject(error);
     });
 
@@ -20,7 +19,7 @@ axios.interceptors.response.use(
     async (error) => {
         const originalRequest = error.config;
      
-        // avoid infinite loop in case of /token and /token/refresh returning status 401
+        /* avoid infinite loop in case of /token and /token/refresh returning status 401 */
         if (error.response.status === 401 && 
                 (originalRequest.url === `token/refresh/` || originalRequest.url === `token/`)) {
             return Promise.reject(error);
@@ -64,10 +63,9 @@ export async function getMood(date) {
         const response = await axios.get(`mood/?date=${date}`);
         return (response.data[0] !== undefined) ? response.data[0].mood : '';
     }
-    catch (err) {
-        //if (error.status === 401) { /* fall silently if only token refresh is needed */ }
-        //else { throw error; }
-        console.log(err);
+    catch (error) {
+        if (error.status === 401) { /* fall silently if only token refresh is needed */ }
+        else { throw error; }
     }
 };
 
