@@ -40,8 +40,7 @@ export default class MoodPicker extends React.Component {
     }
 
     render() {
-        return (
-            <VisualPicker
+        return <VisualPicker
                 value={this.state.value}
                 onChange={this.handleMoodChange}
                 id="mood-visual-picker"
@@ -98,6 +97,5 @@ export default class MoodPicker extends React.Component {
 
                 </VisualPickerOption>
             </VisualPicker>
-        );
     }
 }

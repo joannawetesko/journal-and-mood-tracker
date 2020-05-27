@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:8000/api/';
+axios.defaults.baseURL = 'https://journal-mood-api.herokuapp.com/api/';
 
 axios.interceptors.request.use(
     config => {
@@ -89,6 +89,7 @@ export async function getJournal(date) {
 
 export async function sendJournal(date, value) {
     const response = await axios.get(`journal/?date=${date}`);
+    console.log(response);
     (Array.isArray(response.data) && response.data.length === 0)
         ? axios.post(`journal/`, {'body': value})
         : axios.put(`journal/${response.data[0].pk}/`, {'body': value});

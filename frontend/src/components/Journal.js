@@ -5,14 +5,15 @@ import { Textarea } from 'react-rainbow-components';
 import { JOURNAL_PLACEHOLDER, NO_ENTRY, ROWS } from '../helpers/Constants';
 import { compareDates, formatDate } from '../helpers/Helpers'
 import { getJournal, sendJournal } from '../api/apiClient';
-
+import { LoadingIndicatorJournal } from '../index';
 
 export default class Journal extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            content: ''
+            content: '',
+            isLoading: false
         };
         this.handleJournalChange = this.handleJournalChange.bind(this);
     }
@@ -26,8 +27,9 @@ export default class Journal extends React.Component {
     }
 
     async loadData() {
+        this.setState({ isLoading : true });
         const journalContent = await getJournal(formatDate(this.props.date));
-        return this.setState({ content : journalContent });
+        return this.setState({ content : journalContent, isLoading: false });
     }
 
     handleJournalChange(value) {
@@ -36,13 +38,19 @@ export default class Journal extends React.Component {
     }
 
     render() {
-        return <Textarea 
-            className="margin-20" 
-            rows={ROWS} 
-            placeholder={!(compareDates(this.props.date, new Date())) ? NO_ENTRY : JOURNAL_PLACEHOLDER}
-            value={this.state.content}
-            onChange={(event) => {this.handleJournalChange(event.target.value);}} 
-            readOnly={!(compareDates(this.props.date, new Date()))}
-        />
+        const { isLoading } = this.state;
+        if (isLoading) {
+            return <LoadingIndicatorJournal/>;        
+        }
+        else {
+            return <Textarea
+                className="margin-20" 
+                rows={ROWS} 
+                placeholder={!(compareDates(this.props.date, new Date())) ? NO_ENTRY : JOURNAL_PLACEHOLDER}
+                value={this.state.content}
+                onChange={(event) => {this.handleJournalChange(event.target.value);}} 
+                readOnly={!(compareDates(this.props.date, new Date()))}
+            />
+        };
     }
 }
