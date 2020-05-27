@@ -32,6 +32,13 @@ export const AVATAR_STYLE = {
 export const BUTTON_STYLE = { marginLeft: "3em" };
 export const CHIP_CONTAINER = { paddingLeft: 0 };
 export const INPUT_STYLE = { width: 300 };
+export const LOADER_STYLE = {
+    width: "440px",
+    height: "350px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+};
 export const LOGO = {
     fontSize: "80px",
     fontWeight: "400",

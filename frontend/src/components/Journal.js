@@ -1,11 +1,19 @@
 import React from 'react';
+import Loader from 'react-loader-spinner';
 import '../index.css';
 import { Textarea } from 'react-rainbow-components';
 
-import { JOURNAL_PLACEHOLDER, NO_ENTRY, ROWS } from '../helpers/Constants';
+import { JOURNAL_PLACEHOLDER, NO_ENTRY, ROWS, LOADER_STYLE } from '../helpers/Constants';
 import { compareDates, formatDate } from '../helpers/Helpers'
 import { getJournal, sendJournal } from '../api/apiClient';
-import { LoadingIndicatorJournal } from '../index';
+
+const LoadingIndicatorJournal = props => {
+    return (
+      <div style={LOADER_STYLE}>
+        <Loader type="ThreeDots" color="rgba(128,222,234,1)" height="50" width="50" />
+      </div>
+    );
+  }
 
 export default class Journal extends React.Component {
 

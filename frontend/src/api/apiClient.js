@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://journal-mood-api.herokuapp.com/api/';
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 axios.interceptors.request.use(
     config => {
@@ -64,7 +64,7 @@ export async function getMood(date) {
         return (response.data[0] !== undefined) ? response.data[0].mood : '';
     }
     catch (error) {
-        if (error.status === 401) { /* fall silently if only token refresh is needed */ }
+        if (error.status === 401) { /* fail silently if only token refresh is needed */ }
         else { throw error; }
     }
 };
@@ -82,14 +82,13 @@ export async function getJournal(date) {
         return (response.data[0] !== undefined) ? response.data[0].body : '';
     }
     catch (error) {
-        if (error.status === 401) { /* fall silently if only token refresh is needed */ }
+        if (error.status === 401) { /* fail silently if only token refresh is needed */ }
         else { throw error; }
     }
 };
 
 export async function sendJournal(date, value) {
     const response = await axios.get(`journal/?date=${date}`);
-    console.log(response);
     (Array.isArray(response.data) && response.data.length === 0)
         ? axios.post(`journal/`, {'body': value})
         : axios.put(`journal/${response.data[0].pk}/`, {'body': value});
